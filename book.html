@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Books</h2>
+<div id="bookList"></div>
+
+<script>
+function loadXMLDoc(filename) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET", filename, false);
+    xhttp.send();
+    return xhttp.responseXML;
+}
+
+function displayBooks() {
+    var xml = loadXMLDoc("books.xml");
+    var x = xml.getElementsByTagName("book");
+    var output = "<ul>";
+    for (var i = 0; i < x.length; i++) {
+        output += "<li>" +
+            x[i].getElementsByTagName("title")[0].childNodes[0].nodeValue +
+            " by " +
+            x[i].getElementsByTagName("author")[0].childNodes[0].nodeValue +
+            "</li>";
+    }
+    output += "</ul>";
+    document.getElementById("bookList").innerHTML = output;
+}
+
+window.onload = displayBooks;
+</script>
+
+</body>
+</html>
